@@ -60,42 +60,58 @@ export default function Home() {
           href="/la-plaine-sur-mer"
           className={cn(
             'group block relative mb-8 transition-all duration-700 will-change-transform min-h-[40vh] md:min-h-[50vh] flex items-center',
-            hovered === 'saint' ? 'opacity-40' : 'opacity-100',
+            hovered === 'saint' ? 'md:opacity-40' : 'md:opacity-100',
           )}
           onMouseEnter={() => setHovered('plaine')}
           onPointerEnter={() => setHovered('plaine')}
           onFocus={() => setHovered('plaine')}
         >
+          {/* mobile preview image */}
+          <div
+            className="absolute inset-0 block md:hidden bg-cover bg-center"
+            style={{
+              backgroundImage:
+                "linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)), url('https://images.unsplash.com/photo-1509440159596-0249088772ff?ixlib=rb-4.0.3&auto=format&fit=crop&w=2072&q=80')",
+            }}
+          />
           {/* hidden base image to keep initial black; overlay handles full image */}
-          <div className="absolute inset-0 opacity-0" />
+          <div className="absolute inset-0 opacity-0 md:opacity-0" />
           <div className="relative z-10 py-16 md:py-24">
-            <h2 className="grolet-title text-4xl md:text-6xl lg:text-8xl font-bold mb-4 transition-all duration-500 group-hover:text-white group-hover:tracking-[0.25em] group-hover:scale-105">
+            <h2 className="grolet-title text-4xl md:text-6xl lg:text-8xl font-bold mb-2 md:mb-4 transition-all duration-500 md:group-hover:text-white md:group-hover:tracking-[0.25em] md:group-hover:scale-105 text-white">
               LA PLAiNE SUR MER
             </h2>
-            <p className={cn('text-lg md:text-xl max-w-2xl transition-all duration-500 ease-out opacity-0 -translate-y-1 group-hover:opacity-90 group-hover:translate-y-0')}>
+            <p className={cn('text-base md:text-xl max-w-2xl transition-all duration-500 ease-out text-white drop-shadow md:opacity-0 md:-translate-y-1 md:group-hover:opacity-90 md:group-hover:translate-y-0')}>
               44770 • 02 40 21 50 60
             </p>
           </div>
         </Link>
 
-        {/* Saint-Michel-Chef-Chef */}
+        {/* Tharon-Plage */}
         <Link
           href="/saint-michel-chef-chef"
           className={cn(
             'group block relative transition-all duration-700 will-change-transform min-h-[40vh] md:min-h-[50vh] flex items-center',
-            hovered === 'plaine' ? 'opacity-40' : 'opacity-100',
+            hovered === 'plaine' ? 'md:opacity-40' : 'md:opacity-100',
           )}
           onMouseEnter={() => setHovered('saint')}
           onPointerEnter={() => setHovered('saint')}
           onFocus={() => setHovered('saint')}
         >
+          {/* mobile preview image */}
+          <div
+            className="absolute inset-0 block md:hidden bg-cover bg-center"
+            style={{
+              backgroundImage:
+                "linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)), url('https://images.unsplash.com/photo-1562788869-4ed32648eb72?ixlib=rb-4.0.3&auto=format&fit=crop&w=2072&q=80')",
+            }}
+          />
           {/* hidden base image to keep initial black; overlay handles full image */}
-          <div className="absolute inset-0 opacity-0" />
+          <div className="absolute inset-0 opacity-0 md:opacity-0" />
           <div className="relative z-10 py-16 md:py-24">
-            <h2 className="grolet-title text-4xl md:text-6xl lg:text-8xl font-bold mb-4 transition-all duration-500 group-hover:text-white group-hover:tracking-[0.25em] group-hover:scale-105">
+            <h2 className="grolet-title text-4xl md:text-6xl lg:text-8xl font-bold mb-2 md:mb-4 transition-all duration-500 md:group-hover:text-white md:group-hover:tracking-[0.25em] md:group-hover:scale-105 text-white">
               THARON PLAGE
             </h2>
-            <p className={cn('text-lg md:text-xl max-w-2xl transition-all duration-500 ease-out opacity-0 -translate-y-1 group-hover:opacity-90 group-hover:translate-y-0')}>
+            <p className={cn('text-base md:text-xl max-w-2xl transition-all duration-500 ease-out text-white drop-shadow md:opacity-0 md:-translate-y-1 md:group-hover:opacity-90 md:group-hover:translate-y-0')}>
               44730 • 02 40 39 68 73
             </p>
           </div>
@@ -151,13 +167,13 @@ export default function Home() {
               </Link>
             </div>
 
-            {/* Saint-Michel-Chef-Chef */}
+            {/* Tharon-Plage */}
             <div className="bg-gray-50 rounded-lg p-8">
-              <h3 className="grolet-title text-xl font-bold mb-4">Saint-Michel-Chef-Chef</h3>
+              <h3 className="grolet-title text-xl font-bold mb-4">Tharon-Plage</h3>
               <div className="space-y-2 text-gray-700">
                 <p className="font-medium">Tharon-Plage</p>
                 <p>42 Avenue du Maréchal Foch</p>
-                <p>44730 Saint-Michel-Chef-Chef</p>
+                <p>44730 Tharon-Plage</p>
                 <p className="font-medium text-black mt-4">02 40 39 68 73</p>
               </div>
               <Link href="/saint-michel-chef-chef">

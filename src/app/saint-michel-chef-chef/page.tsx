@@ -7,6 +7,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
 import { Card, CardContent } from '@/components/ui/card'
 import Link from 'next/link'
+import Gallery from '@/components/Gallery'
 
 const products = [
   {
@@ -241,11 +242,11 @@ export default function SaintMichelChefChef() {
       {/* Header */}
       <header className="relative z-50 bg-white border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center h-16">
+          <div className="relative flex items-center h-16 justify-center">
             {/* Mobile menu button */}
             <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
               <SheetTrigger asChild>
-                <Button variant="ghost" size="sm" className="md:hidden">
+                <Button variant="ghost" size="sm" className="md:hidden absolute left-0">
                   <Menu className="h-5 w-5" />
                 </Button>
               </SheetTrigger>
@@ -266,10 +267,10 @@ export default function SaintMichelChefChef() {
             </Sheet>
 
             {/* Logo */}
-            <div className="md:flex-none mr-6">
+            <div className="md:flex-none md:mr-6">
               <Link href="/" className="grolet-title text-xl font-bold tracking-wider">
                 L'ARBRE À PAINS<br />
-                <span className="text-sm font-normal">THARON PLAGE</span>
+                <span className="text-sm font-normal">THARON-PLAGE</span>
               </Link>
             </div>
 
@@ -292,25 +293,25 @@ export default function SaintMichelChefChef() {
       </header>
 
       {/* Hero Section */}
-      <section className="grolet-hero-bg py-16 md:py-24">
+      <section className="grolet-hero-bg py-12 md:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
             {/* Left side - Content */}
             <div>
-              <h2 className="grolet-title text-4xl md:text-6xl font-bold mb-8">THARON PLAGE</h2>
+              <h2 className="grolet-title text-3xl sm:text-4xl md:text-6xl font-bold leading-tight mb-3 md:mb-8">THARON PLAGE</h2>
               <div className="space-y-4">
-                <p className="text-sm text-gray-600">Boulangerie-Pâtisserie artisanale</p>
+                <p className="text-sm text-gray-600 md:text-base">Boulangerie-Pâtisserie artisanale</p>
                 <h3 className="text-2xl font-medium">Nos spécialités de bord de mer</h3>
-                <div className="space-y-2 text-sm text-gray-600">
-                  <div className="flex items-center space-x-2">
-                    <MapPin className="h-4 w-4" />
-                    <span>42 Avenue du Maréchal Foch, 44730 Saint-Michel-Chef-Chef</span>
+                <div className="text-sm md:text-base text-gray-600">
+                  <div className="flex items-start gap-2">
+                    <MapPin className="h-4 w-4 mt-0.5" />
+                    <span className="leading-snug">42 Avenue du Maréchal Foch, 44730 Tharon-Plage</span>
                   </div>
                 </div>
-                <div className="pt-4">
+                <div className="pt-3 md:pt-4">
                   <Button
                     onClick={() => document.getElementById('produits')?.scrollIntoView({ behavior: 'smooth' })}
-                    className="bg-black text-white hover:bg-gray-800 px-8 py-3"
+                    className="w-full md:w-auto bg-black text-white hover:bg-gray-800 px-8 py-3"
                   >
                     Découvrir notre carte
                   </Button>
@@ -319,14 +320,14 @@ export default function SaintMichelChefChef() {
             </div>
 
             {/* Right side - Store Status and Call Button */}
-            <div className="bg-black text-white p-8 rounded-lg">
+            <div className="bg-black text-white p-6 md:p-8 rounded-lg">
               <div className="flex items-center space-x-2 mb-4">
                 <div className={`w-3 h-3 rounded-full animate-pulse ${storeOpen ? 'bg-green-400' : 'bg-red-400'}`}></div>
                 <span className="text-sm font-medium">
                   {storeOpen ? 'BOUTIQUE OUVERTE' : 'BOUTIQUE FERMÉE'}
                 </span>
               </div>
-              <h3 className="text-2xl font-medium mb-6">
+              <h3 className="text-xl md:text-2xl font-medium mb-4 md:mb-6">
                 Boulangerie artisanale
               </h3>
               <Button
@@ -341,56 +342,11 @@ export default function SaintMichelChefChef() {
         </div>
       </section>
 
-      {/* Gallery Section */}
+      {/* Galerie */}
       <section id="galerie" className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="grolet-title text-3xl font-bold text-center mb-12">Galerie Photos</h2>
-          <div className="relative max-w-4xl mx-auto">
-            <div className="relative overflow-hidden rounded-lg h-[60vh] md:h-[65vh]">
-              <button
-                type="button"
-                onClick={() => setIsGalleryOpen(true)}
-                className="w-full h-full"
-                aria-label="Ouvrir l'image en grand"
-              >
-                <img
-                  src={galleryImages[currentImageIndex].src}
-                  alt={galleryImages[currentImageIndex].alt}
-                  className="w-full h-full object-cover object-center"
-                />
-              </button>
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-6">
-                <p className="text-white text-lg font-medium">{galleryImages[currentImageIndex].caption}</p>
-              </div>
-            </div>
-            <Button
-              onClick={prevImage}
-              variant="outline"
-              size="icon"
-              className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white"
-            >
-              <ChevronLeft className="h-6 w-6" />
-            </Button>
-            <Button
-              onClick={nextImage}
-              variant="outline"
-              size="icon"
-              className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white"
-            >
-              <ChevronRight className="h-6 w-6" />
-            </Button>
-            <div className="flex justify-center mt-6 space-x-2">
-              {galleryImages.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => setCurrentImageIndex(index)}
-                  className={`w-3 h-3 rounded-full transition-colors ${
-                    index === currentImageIndex ? 'bg-black' : 'bg-gray-300'
-                  }`}
-                />
-              ))}
-            </div>
-          </div>
+          <Gallery images={galleryImages} fit="contain" />
         </div>
       </section>
 
@@ -417,7 +373,7 @@ export default function SaintMichelChefChef() {
                 </p>
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="hidden md:grid grid-cols-2 gap-4">
               <img
                 src="https://images.unsplash.com/photo-1562788869-4ed32648eb72?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
                 alt="Vue sur mer"
@@ -452,16 +408,21 @@ export default function SaintMichelChefChef() {
               <Card key={product.id} className="group cursor-pointer border-0 shadow-none relative">
                 <CardContent className="p-0">
                   <div
-                                        className="aspect-square overflow-hidden rounded-lg relative cursor-pointer outline-none focus:outline-none ring-0 focus:ring-0 [-webkit-tap-highlight-color:transparent]"
-                     onClick={() => openProductModal(product)}
+                    className="aspect-square overflow-hidden rounded-lg relative cursor-pointer"
+                    onClick={() => openProductModal(product)}
                   >
                     <img
                       src={product.image}
                       alt={product.name}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     />
-                    {/* Hover overlay with minimal info */}
-                    <div className="absolute inset-0 bg-black bg-opacity-60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-center items-center text-center p-6">
+                    {/* Mobile info bar */}
+                    <div className="absolute bottom-0 left-0 right-0 md:hidden bg-black/70 text-white px-3 py-2 flex items-center justify-between">
+                      <span className="grolet-product-title text-sm font-medium truncate pr-2">{product.name}</span>
+                      <span className="text-sm whitespace-nowrap">{product.price} €</span>
+                    </div>
+                    {/* Hover overlay with minimal info (desktop) */}
+                    <div className="absolute inset-0 bg-black bg-opacity-60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 hidden md:flex flex-col justify-center items-center text-center p-6">
                       <h3 className="grolet-product-title text-white text-lg font-medium mb-2">{product.name}</h3>
                       <p className="text-white text-sm">{product.price} €</p>
                     </div>
@@ -476,22 +437,13 @@ export default function SaintMichelChefChef() {
       {/* Horaires Section */}
       <section id="horaires" className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="grolet-title text-3xl font-bold text-center mb-12">Horaires d'ouverture</h2>
+          <h2 className="grolet-title text-2xl md:text-3xl font-bold text-center mb-8 md:mb-12">Horaires d'ouverture</h2>
           <div className="max-w-2xl mx-auto">
-            <div className="bg-white rounded-lg shadow-sm p-8">
+            <div className="bg-white rounded-lg shadow-sm p-4 md:p-8">
               {schedule.map((item, index) => (
-                <div
-                  key={index}
-                  className={`flex justify-between items-center py-3 border-b border-gray-100 last:border-b-0 rounded-md ${index === todayIndex ? 'bg-gray-100' : ''}`}
-                >
-                  <span className="font-medium flex items-center gap-2">
-                    {index === todayIndex && (
-                      <span className={`inline-block w-2.5 h-2.5 rounded-full ${storeOpen ? 'bg-green-500' : 'bg-red-500'} animate-pulse`} />
-                    )}
-                    {item.day}
-                    {index === todayIndex && <span className="ml-2 text-xs text-gray-500">(Aujourd'hui)</span>}
-                  </span>
-                  <span className={item.hours === "Fermé" ? "text-red-500" : "text-gray-600"}>{item.hours}</span>
+                <div key={index} className="flex justify-between items-center py-2 md:py-3 border-b border-gray-100 last:border-b-0">
+                  <span className="font-medium text-base md:text-lg">{item.day}</span>
+                  <span className={(item.hours === "Fermé" ? "text-red-500" : "text-gray-600") + " text-sm md:text-base text-right leading-tight break-words"}>{item.hours}</span>
                 </div>
               ))}
             </div>
@@ -512,7 +464,7 @@ export default function SaintMichelChefChef() {
               allowFullScreen
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
-              title="L'Arbre à Pains - Saint-Michel-Chef-Chef"
+              title="L'Arbre à Pains - Tharon-Plage"
               className="group-hover:scale-[1.02] transition-transform duration-300"
             />
           </div>
@@ -530,7 +482,7 @@ export default function SaintMichelChefChef() {
               <h3 className="grolet-title text-xl font-bold mb-2">L'ARBRE À PAINS</h3>
               <p className="text-gray-600 mb-4">Boulangerie-Pâtisserie artisanale</p>
               <div className="space-y-2 text-sm text-gray-600">
-                <p>42 Avenue du Maréchal Foch, 44730 Saint-Michel-Chef-Chef</p>
+                <p>42 Avenue du Maréchal Foch, 44730 Tharon-Plage</p>
                 <p>SARL Douaud - Spécialiste pièces montées</p>
               </div>
             </div>
@@ -553,42 +505,15 @@ export default function SaintMichelChefChef() {
         </div>
       </footer>
 
-      {/* Gallery Modal */}
-      <Dialog open={isGalleryOpen} onOpenChange={setIsGalleryOpen}>
-        <DialogContent className="max-w-5xl w-full h-[85vh] p-0 gap-0">
-          <div className="relative w-full h-full bg-black/90 flex items-center justify-center">
-            <img
-              src={galleryImages[currentImageIndex].src}
-              alt={galleryImages[currentImageIndex].alt}
-              className="max-w-full max-h-full object-contain"
-            />
-            <button
-              type="button"
-              onClick={() => setCurrentImageIndex((prev) => (prev - 1 + galleryImages.length) % galleryImages.length)}
-              className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/60 text-white rounded-full px-3 py-2 hover:bg-black/80 focus:outline-none z-10"
-              aria-label="Image précédente"
-            >
-              ‹
-            </button>
-            <button
-              type="button"
-              onClick={() => setCurrentImageIndex((prev) => (prev + 1) % galleryImages.length)}
-              className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/60 text-white rounded-full px-3 py-2 hover:bg-black/80 focus:outline-none z-10"
-              aria-label="Image suivante"
-            >
-              ›
-            </button>
-          </div>
-        </DialogContent>
-      </Dialog>
+      {/* Galerie gérée par le composant */}
 
       {/* Product Modal - Style Cédric Grolet */}
       {selectedProduct && (
         <Dialog open={!!selectedProduct} onOpenChange={closeProductModal}>
           <DialogContent className="max-w-6xl w-full h-[80vh] p-0 gap-0">
             <div className="grid grid-cols-1 md:grid-cols-2 h-full">
-              {/* Left side - Large image */}
-              <div className="relative h-full overflow-hidden">
+              {/* Left side - Large image (hidden on mobile) */}
+              <div className="hidden md:block relative h-full overflow-hidden">
                 <img
                   src={selectedProduct.image}
                   alt={selectedProduct.name}
