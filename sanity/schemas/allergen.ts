@@ -5,6 +5,12 @@ export default defineType({
   title: "Allergène",
   type: "document",
   fields: [
-    defineField({ name: "title", title: "Nom", type: "string", validation: (r) => r.required() }),
+    defineField({
+      name: "title",
+      title: "Nom",
+      type: "string",
+      description: "Exemples: gluten, œufs, lait, arachides, fruits à coque.",
+      validation: (r) => r.required(),
+    }),
   ],
 });

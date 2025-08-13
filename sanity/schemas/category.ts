@@ -5,6 +5,12 @@ export default defineType({
   title: "Catégorie",
   type: "document",
   fields: [
-    defineField({ name: "title", title: "Nom", type: "string", validation: (r) => r.required() }),
+    defineField({
+      name: "title",
+      title: "Nom",
+      type: "string",
+      description: "Exemples: Pâtisserie, Viennoiserie, Pain, Snacking.",
+      validation: (r) => r.required(),
+    }),
   ],
 });

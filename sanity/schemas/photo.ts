@@ -13,6 +13,7 @@ export default defineType({
       name: "title",
       title: "Nom de la photo",
       type: "string",
+      description: "Titre court affiché en légende. Exemple: Viennoiseries du matin.",
       validation: (rule) => rule.required(),
     }),
     defineField({
@@ -20,6 +21,7 @@ export default defineType({
       title: "Image",
       type: "image",
       options: { hotspot: true },
+      description: "Image horizontale conseillée (ex: 1600×900).",
       validation: (rule) => rule.required(),
     }),
     defineField({
@@ -27,6 +29,7 @@ export default defineType({
       title: "Boutique (optionnel)",
       type: "reference",
       to: [{ type: "shop" }],
+      description: "Associer la boutique pour filtrer l'affichage. Laisser vide = visible dans toutes les boutiques.",
     }),
   ],
 });

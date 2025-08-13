@@ -25,11 +25,11 @@ export default function Gallery({ images, className, heightClassName = "h-[52vh]
   const [open, setOpen] = useState(false);
   const touchX = useRef<number | null>(null);
 
-  const total = images.length;
-  const current = images[index] ?? images[0];
+  const total = images?.length ?? 0;
+  const current = total > 0 ? images[index % total] : undefined;
 
-  const next = useCallback(() => setIndex((i) => (i + 1) % total), [total]);
-  const prev = useCallback(() => setIndex((i) => (i - 1 + total) % total), [total]);
+  const next = useCallback(() => total > 0 && setIndex((i) => (i + 1) % total), [total]);
+  const prev = useCallback(() => total > 0 && setIndex((i) => (i - 1 + total) % total), [total]);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -56,6 +56,10 @@ export default function Gallery({ images, className, heightClassName = "h-[52vh]
 
   const imageFitClass = fit === "cover" ? "object-cover" : "object-contain";
 
+  if (total === 0) {
+    return null;
+  }
+
   return (
     <div className={"relative max-w-4xl mx-auto " + (className ?? "")}>      
       <div
@@ -80,40 +84,46 @@ export default function Gallery({ images, className, heightClassName = "h-[52vh]
           className="w-full h-full"
           aria-label="Ouvrir l'image en grand"
         >
-          <img
-            src={current.src}
-            alt={current.alt}
-            className={`w-full h-full ${imageFitClass} object-center select-none`}
-            draggable={false}
-          />
-        </button>
-        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-6">
-          {current.caption && (
-            <p className="text-white text-lg font-medium line-clamp-2">{current.caption}</p>
+          {current && (
+            <img
+              src={current.src}
+              alt={current.alt}
+              className={`w-full h-full ${imageFitClass} object-center select-none`}
+              draggable={false}
+            />
           )}
-        </div>
+        </button>
+        {current?.caption && (
+          <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-6">
+            <p className="text-white text-lg font-medium line-clamp-2">{current.caption}</p>
+          </div>
+        )}
       </div>
 
-      <Button
-        onClick={prev}
-        variant="outline"
-        size="icon"
-        className="hidden md:inline-flex absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white"
-        aria-label="Image précédente"
-      >
-        <ChevronLeft className="h-6 w-6" />
-      </Button>
-      <Button
-        onClick={next}
-        variant="outline"
-        size="icon"
-        className="hidden md:inline-flex absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white"
-        aria-label="Image suivante"
-      >
-        <ChevronRight className="h-6 w-6" />
-      </Button>
+      {total > 1 && (
+        <>
+          <Button
+            onClick={prev}
+            variant="outline"
+            size="icon"
+            className="hidden md:inline-flex absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white"
+            aria-label="Image précédente"
+          >
+            <ChevronLeft className="h-6 w-6" />
+          </Button>
+          <Button
+            onClick={next}
+            variant="outline"
+            size="icon"
+            className="hidden md:inline-flex absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white"
+            aria-label="Image suivante"
+          >
+            <ChevronRight className="h-6 w-6" />
+          </Button>
+        </>
+      )}
 
-      <div className="flex justify-center mt-6 space-x-2">{bullets}</div>
+      {total > 1 && <div className="flex justify-center mt-6 space-x-2">{bullets}</div>}
 
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent overlayClassName="bg-black/80" closeClassName="right-3 top-3 bg-white text-black w-9 h-9 flex items-center justify-center rounded-full" className="max-w-none w-[98vw] h-[96vh] p-0 gap-0 overflow-hidden bg-transparent border-0 shadow-none sm:rounded-none">
@@ -134,28 +144,34 @@ export default function Gallery({ images, className, heightClassName = "h-[52vh]
               touchX.current = null;
             }}
           >
-            <img
-              src={current.src}
-              alt={current.alt}
-              className="max-w-[92vw] max-h-[86vh] object-contain select-none"
-              draggable={false}
-            />
-            <button
-              type="button"
-              onClick={prev}
-              className="hidden md:flex absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 text-black rounded-full w-10 h-10 items-center justify-center hover:bg-white focus:outline-none z-10"
-              aria-label="Image précédente"
-            >
-              ‹
-            </button>
-            <button
-              type="button"
-              onClick={next}
-              className="hidden md:flex absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 text-black rounded-full w-10 h-10 items-center justify-center hover:bg-white focus:outline-none z-10"
-              aria-label="Image suivante"
-            >
-              ›
-            </button>
+            {current && (
+              <img
+                src={current.src}
+                alt={current.alt}
+                className="max-w-[92vw] max-h-[86vh] object-contain select-none"
+                draggable={false}
+              />
+            )}
+            {total > 1 && (
+              <>
+                <button
+                  type="button"
+                  onClick={prev}
+                  className="hidden md:flex absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 text-black rounded-full w-10 h-10 items-center justify-center hover:bg-white focus:outline-none z-10"
+                  aria-label="Image précédente"
+                >
+                  ‹
+                </button>
+                <button
+                  type="button"
+                  onClick={next}
+                  className="hidden md:flex absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 text-black rounded-full w-10 h-10 items-center justify-center hover:bg-white focus:outline-none z-10"
+                  aria-label="Image suivante"
+                >
+                  ›
+                </button>
+              </>
+            )}
           </div>
         </DialogContent>
       </Dialog>
