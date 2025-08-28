@@ -6,9 +6,9 @@ export const revalidate = 60
 
 export default async function Page() {
   const shop = await getShopByTitle('La Plaine-sur-Mer')
-  let products = []
-  let galleryImages = []
-  let schedule = []
+  let products: ReturnType<typeof mapProductsToUi> = []
+  let galleryImages: ReturnType<typeof mapPhotosToUi> = []
+  let schedule: ReturnType<typeof mapHoursToSchedule> = []
   let openingMap: Record<number, Array<{ start: number; end: number }>> = { 0: [], 1: [], 2: [], 3: [], 4: [], 5: [], 6: [] }
   let categories: string[] = []
 
@@ -22,10 +22,10 @@ export default async function Page() {
     galleryImages = mapPhotosToUi(photos)
     schedule = mapHoursToSchedule(shop.hours)
     openingMap = buildOpeningHoursMap(shop.hours)
-    categories = cats.map((c: any) => c.title)
+    categories = cats.map((c) => c.title)
   }
 
   return (
-    <ClientShopPage products={products as any} galleryImages={galleryImages as any} schedule={schedule as any} openingMap={openingMap} allCategories={categories} />
+    <ClientShopPage products={products} galleryImages={galleryImages} schedule={schedule} openingMap={openingMap} allCategories={categories} />
   )
 }

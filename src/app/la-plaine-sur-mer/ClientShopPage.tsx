@@ -287,6 +287,16 @@ export default function ClientShopPage({
               <div className="space-y-2 text-sm text-gray-600">
                 <p>{addressLine}</p>
                 <p>SARL Douaud - Professionnel du Bio</p>
+                <p>
+                  La Plaine-sur-Mer:
+                  {' '}
+                  <a href="tel:0240215060" className="text-black hover:underline">02 40 21 50 60</a>
+                </p>
+                <p>
+                  Tharon-Plage:
+                  {' '}
+                  <a href="tel:0240396873" className="text-black hover:underline">02 40 39 68 73</a>
+                </p>
               </div>
             </div>
             <nav className="flex flex-wrap justify-center gap-6 text-sm">
