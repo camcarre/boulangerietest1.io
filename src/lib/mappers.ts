@@ -79,7 +79,7 @@ export function mapHoursToSchedule(hours?: Hours | null): UiScheduleItem[] {
     return dayLabels.map((d) => ({ day: d, hours: "Fermé" }));
   }
   return dayOrder.map((key, idx) => {
-    // @ts-ignore
+    // @ts-expect-error indexing by known Hours keys
     const ranges = (hours[key] || []) as Array<{ start: string; end: string }>;
     if (!ranges.length) return { day: dayLabels[idx], hours: "Fermé" };
     const label = ranges.map((r) => `${hhmmToLabel(r.start)} - ${hhmmToLabel(r.end)}`).join(" & ");
@@ -91,7 +91,7 @@ export function buildOpeningHoursMap(hours?: Hours | null): Record<number, Array
   const map: Record<number, Array<{ start: number; end: number }>> = { 0: [], 1: [], 2: [], 3: [], 4: [], 5: [], 6: [] };
   if (!hours) return map;
   dayOrder.forEach((key, idx) => {
-    // @ts-ignore
+    // @ts-expect-error indexing by known Hours keys
     const ranges = (hours[key] || []) as Array<{ start: string; end: string }>;
     map[(idx + 1) % 7] = ranges.map((r) => ({ start: parseInt(r.start, 10), end: parseInt(r.end, 10) }));
   });

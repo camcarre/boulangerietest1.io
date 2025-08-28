@@ -9,7 +9,8 @@ export const sanityClient: SanityClient = createClient({
 });
 
 const builder = imageUrlBuilder(sanityClient);
-export function urlFor(source: { asset?: { _ref?: string; _id?: string } | null } | null | undefined) {
-  if (!source) return builder.image({} as any);
-  return builder.image(source as any);
+type SanityImageLike = { asset?: { _ref?: string; _id?: string } | null } | null | undefined;
+export function urlFor(source: SanityImageLike) {
+  // If no source, return builder to avoid undefined access; callers decide usage
+  return builder.image((source || { asset: undefined }) as { asset?: { _ref?: string; _id?: string } });
 }
