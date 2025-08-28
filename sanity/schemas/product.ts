@@ -65,7 +65,6 @@ export default defineType({
       title: "Tailles et prix",
       description: "Une ligne = une taille avec son prix. Exemples de tailles: Individuelle, 4 parts, 6 parts.",
       type: "array",
-      options: { layout: "table" },
       of: [
         defineField({
           name: "variant",
