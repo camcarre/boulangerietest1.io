@@ -32,21 +32,46 @@ export const photosForShopQuery = groq`*[_type == "photo" && (!defined(shop) || 
 }`;
 
 export async function getShopByTitle(title: string): Promise<Shop | null> {
-  return sanityClient.fetch(shopByTitleQuery, { title });
+  try {
+    return await sanityClient.fetch(shopByTitleQuery, { title });
+  } catch (error) {
+    console.error(`Error fetching shop by title "${title}":`, error);
+    return null;
+  }
 }
 
 export async function getAllShops(): Promise<Shop[]> {
-  return sanityClient.fetch(allShopsQuery);
+  try {
+    return await sanityClient.fetch(allShopsQuery);
+  } catch (error) {
+    console.error("Error fetching all shops:", error);
+    return [];
+  }
 }
 
 export async function getAllCategories(): Promise<{ _id: string; title: string }[]> {
-  return sanityClient.fetch(allCategoriesQuery);
+  try {
+    return await sanityClient.fetch(allCategoriesQuery);
+  } catch (error) {
+    console.error("Error fetching all categories:", error);
+    return [];
+  }
 }
 
 export async function getProductsForShop(shopId: string): Promise<Product[]> {
-  return sanityClient.fetch(productsForShopQuery, { shopId });
+  try {
+    return await sanityClient.fetch(productsForShopQuery, { shopId });
+  } catch (error) {
+    console.error(`Error fetching products for shop "${shopId}":`, error);
+    return [];
+  }
 }
 
 export async function getPhotosForShop(shopId: string): Promise<Photo[]> {
-  return sanityClient.fetch(photosForShopQuery, { shopId });
+  try {
+    return await sanityClient.fetch(photosForShopQuery, { shopId });
+  } catch (error) {
+    console.error(`Error fetching photos for shop "${shopId}":`, error);
+    return [];
+  }
 }
