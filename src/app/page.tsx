@@ -29,6 +29,13 @@ export default function Home() {
     <div className="min-h-screen bg-white text-black relative overflow-hidden">
       {/* Fullscreen hover overlay image (only when at top of page) */}
       <div className={`fixed inset-0 z-20 pointer-events-none transition-opacity duration-300 ${showOverlay ? 'opacity-100' : 'opacity-0'} hidden md:block`} aria-hidden style={{ mixBlendMode: 'multiply' }}>
+        {/* Base black layer when nothing is hovered */}
+        <div
+          className={cn(
+            'absolute inset-0 bg-black transition-opacity duration-700',
+            hovered ? 'opacity-0' : 'opacity-100'
+          )}
+        />
         {/* Cross-fade overlays */}
         <div
           className={cn(
